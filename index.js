@@ -1,16 +1,8 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
+const Employee = require("./lib/Employee");
 
 
 // TODO: Create a function to initialize app
-function init() {
-    inquirer
-        .prompt (questions)
-        .then( (data) => {
-            console.log(data);
-            writeToFile(data);
-        })
-}
+const employee = new Employee();
 
 // Function call to initalize app
-init();
+employee.getName();
