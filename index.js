@@ -1,8 +1,17 @@
-const Employee = require("./lib/Employee");
+const inquirer = require('inquirer');
+const fs = require('fs');
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require('./lib/Manager');
+
+const teamArray = [];
 
 
 // TODO: Create a function to initialize app
-const employee = new Employee();
+function getManager() {
+    newmanager = new Manager();
+    newmanager.getName();
+}
 
 // Function call to initalize app
-employee.getName();
+getManager();
