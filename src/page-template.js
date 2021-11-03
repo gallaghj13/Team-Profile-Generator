@@ -1,5 +1,5 @@
-const generateManager = Manager => {
-    return `
+const generateManager = (Manager) => {
+  return `
     <div class="card employee-card">
         <div class =card-header manager">
             <h2 class="card-title">${Manager.name}</h2>
@@ -12,12 +12,13 @@ const generateManager = Manager => {
                 <li class="list-group-item">Office Number: ${Manager.officeNumber}</li>
             </ul>
         </div>
-    </div>`
-}
+    </div>`;
+};
 
-const generateEngineers = engineersArr => {
-    return `
-    ${engineersArr.map(({name, id, email, github, role}) => {
+const generateEngineers = (engineersArr) => {
+  return `
+    ${engineersArr
+      .map(({ name, id, email, github, role }) => {
         return `
     <div class="card employee-card">
         <div class =card-header manager">
@@ -33,13 +34,39 @@ const generateEngineers = engineersArr => {
         </div>
     </div>
     `;
-    }).join('')}
-    `}
+      })
+      .join("")}
+    `;
+};
 
-module.exports = templateData => {
-    const {interns, engineers, ...manager} = templateData;
+const generateInterns = (internsArr) => {
+  return `
+        ${internsArr
+          .map(({ name, id, email, school, role }) => {
+            return `
+        <div class="card employee-card">
+            <div class =card-header manager">
+                <h2 class="card-title">${name}</h2>
+                <h3 class="card-title">${role}</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">ID: ${id}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
+                    <li class="list-group-item">School: ${school}</li>
+                </ul>
+            </div>
+        </div>
+        `;
+          })
+          .join("")}
+        `;
+};
 
-    return `<!DOCTYPE html>
+module.exports = (templateData) => {
+  const { interns, engineers, ...manager } = templateData;
+
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -51,9 +78,10 @@ module.exports = templateData => {
         <main>
             ${generateManager(manager)}
             ${generateEngineers(engineers)}
+            ${generateInterns(interns)}
         </main>
         
     </body>
     </html>
-    `
-}
+    `;
+};
