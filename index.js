@@ -4,6 +4,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require('./lib/Manager');
 const Employee = require('./lib/Employee');
+const generateHTML = require("./src/page-template");
 
 
 // TODO: Create a function to initialize app
@@ -34,11 +35,11 @@ return inquirer.prompt([
     const {name, id, email, officeNumber} = managerData;
     employee = new Manager(name, id, email, officeNumber);
     let role = {role: "Manager"};
-    return {...maangerData, ...role};
+    return {...managerData, ...role};
 })
 }
 
-const addEmployee = (managerData) => {
+const addEmployee = managerData => {
     // Two if statements for managerData.engineersArr and managerData.internsArr
     if(!managerData.engineersArr) {
         managerData.engineersArr = [];
@@ -55,8 +56,8 @@ const addEmployee = (managerData) => {
                 choices: ['Engineer', 'Intern', 'Done Building Team']
             }
         ])
-        .then((val) => {
-            if(val.choices === "Engineer") {
+        .then(({ employee }) => {
+            if(employee === "Engineer") {
                 return inquirer.prompt([
                     {
                         type: "input",
@@ -88,7 +89,7 @@ const addEmployee = (managerData) => {
                 // Set role = to Engineer
                 // managerData.engineers.push({...employeeData,...role})
                 // return addEmployee till user has selected completed
-            } else if(val.choices === "Intern") {
+            } else if( employee === "Intern") {
                 return inquirer.prompt([
                     {
                         type: "input",
@@ -123,10 +124,33 @@ const addEmployee = (managerData) => {
         })
 }
 
-// Need function to generate html
-
+// Need function to write html
+const writeHtml = (templateData) => {
+    const htmlContent = templateData;
+    fs.writeFile('SAMPLEHTML.html', htmlContent, (err) =>
+    err ? console.log(err) : console.log("Success!")
+    );
+    fs.copyFile("./src/src.css", "./dist/style.css", (err) => {
+        err ? console.log(err) : console.log("Success!")
+    });
+    return;
+}
 // Function call to initalize app
-ManagerPrompt();
+ManagerPrompt()
+    .then(addEmployee)
+    .then(managerData => {
+        return generateHTML(managerData);
+    })
+    .then(templateData => {
+        return writeHtml(templateData);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+    // .then(writeHtmlResponse => {
+    //     console.log("Success!")
+    //     return
+    // });
 
 // After Manager is answered Prompt Intern/Engineer questions
 // After Completed is selected Prompt write file 
