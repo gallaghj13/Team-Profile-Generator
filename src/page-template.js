@@ -1,5 +1,4 @@
-const generateManager = (Manager) => {
-    console.log(Manager);
+const generateManager = Manager => {
   return `
     <div class="card employee-card">
         <div class =card-header manager">
@@ -16,8 +15,7 @@ const generateManager = (Manager) => {
     </div>`;
 };
 
-const generateEngineers = (engineersArr) => {
-    console.log(engineersArr);
+const generateEngineers = engineersArr => {
   return `
     ${engineersArr
       .map(({ name, id, email, role, github }) => {
@@ -41,7 +39,7 @@ const generateEngineers = (engineersArr) => {
     `;
 };
 
-const generateInterns = (internsArr) => {
+const generateInterns = internsArr => {
     console.log(internsArr);
   return `
         ${internsArr
