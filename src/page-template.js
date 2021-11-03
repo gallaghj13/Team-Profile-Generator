@@ -1,4 +1,5 @@
 const generateManager = (Manager) => {
+    console.log(Manager);
   return `
     <div class="card employee-card">
         <div class =card-header manager">
@@ -16,9 +17,10 @@ const generateManager = (Manager) => {
 };
 
 const generateEngineers = (engineersArr) => {
+    console.log(engineersArr);
   return `
     ${engineersArr
-      .map(({ name, id, email, github, role }) => {
+      .map(({ name, id, email, role, github }) => {
         return `
     <div class="card employee-card">
         <div class =card-header manager">
@@ -35,11 +37,12 @@ const generateEngineers = (engineersArr) => {
     </div>
     `;
       })
-      .join("")}
+      .join('')}
     `;
 };
 
 const generateInterns = (internsArr) => {
+    console.log(internsArr);
   return `
         ${internsArr
           .map(({ name, id, email, school, role }) => {
